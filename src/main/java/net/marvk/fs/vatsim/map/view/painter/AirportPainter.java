@@ -38,6 +38,8 @@ public class AirportPainter extends MapPainter<Airport> {
 
     @Parameter("Controllers")
     private boolean paintControllers = true;
+    @Parameter("Traffic on Ground Counter")
+    private boolean paintGroundCounter = true;
     @Parameter("Atis Color")
     private Color atisColor = Color.web("443000");
     @Parameter("Delivery Color")
@@ -56,18 +58,23 @@ public class AirportPainter extends MapPainter<Airport> {
     private Color typesLabelColor = Color.WHITE.darker();
     @Parameter("Controller Border Color")
     private Color typesBorderColor = Color.BLACK.brighter();
+    @Parameter("Airport Departures on Ground Count Color")
+    private Color depCountColor = Color.GREEN;
+    @Parameter("Airport Arrivals on Ground Count Color")
+    private Color arrCountColor = Color.RED;
 
     public AirportPainter(final MapVariables mapVariables) {
         super(mapVariables);
         setBackgroundColor();
     }
 
-    public AirportPainter(final MapVariables mapVariables, final Color textColor, final Color airportColor, final boolean paintAll, final boolean paintControllers, final boolean paintBackground) {
+    public AirportPainter(final MapVariables mapVariables, final Color textColor, final Color airportColor, final boolean paintAll, final boolean paintControllers, final boolean paintGroundCounter, final boolean paintBackground) {
         super(mapVariables);
         this.textColor = textColor;
         this.airportColor = airportColor;
         this.paintAll = paintAll;
         this.paintControllers = paintControllers;
+        this.paintGroundCounter = paintGroundCounter;
         this.paintBackground = paintBackground;
         setBackgroundColor();
     }
@@ -183,16 +190,16 @@ public class AirportPainter extends MapPainter<Airport> {
         }
 
         final int typesWidth = (int) Math.ceil(textScale * TYPES_WIDTH);
-        if (departuresOnGround > 0) {
-            c.setFill(Color.GREEN);
+        if (departuresOnGround > 0 && paintGroundCounter) {
+            c.setFill(depCountColor);
             c.setTextBaseline(VPos.TOP);
             final double xCur = typeLabelX(x, 6, 6, typesWidth);
             final double yCur = y - 25;
             painterHelper.fillText(c, "⬈" + departuresOnGround, xCur, yCur);
         }
 
-        if (arrivalsOnGround > 0) {
-            c.setFill(Color.RED);
+        if (arrivalsOnGround > 0 && paintGroundCounter) {
+            c.setFill(arrCountColor);
             c.setTextBaseline(VPos.TOP);
             final double xCur = typeLabelX(x, 6, 6, typesWidth);
             final double yCur = y - 15;

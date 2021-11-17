@@ -44,6 +44,8 @@ public class ToolBarView implements FxmlView<ToolBarViewModel> {
     @FXML
     private ToggleButton airportsLabel;
     @FXML
+    private ToggleButton airportsTrafficCounter;
+    @FXML
     private ToggleButton airportsInactive;
     @FXML
     private ToggleButton firs;
@@ -67,6 +69,7 @@ public class ToolBarView implements FxmlView<ToolBarViewModel> {
                 pilotsOnGround,
                 airports,
                 airportsLabel,
+                airportsTrafficCounter,
                 airportsInactive,
                 firs,
                 firsInactive,
